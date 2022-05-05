@@ -1,5 +1,6 @@
 import sha1 from 'sha1';
 import dbClient from '../utils/db';
+import { DB_NAME } from '../utils/db';
 
 export default class Users {
   static async postNew(req, res) {
@@ -12,7 +13,7 @@ export default class Users {
       return res.status(400).json({ error: 'Missing password' });
     }
     const user = await dbClient.client
-      .db('files_manager')
+      .db(DB_NAME)
       .collection('users')
       .findOne({ email });
     if (user) {
@@ -20,9 +21,11 @@ export default class Users {
     }
     const hash = sha1(password);
     const newUser = await dbClient.client
-      .db('files_manager')
+      .db(DB_NAME)
       .collection('users')
       .insert({ email, password: hash });
-    return res.status(201).json({ id: newUser.ops[0]._id, email: newUser.ops[0].email });
+    return res
+      .status(201)
+      .json({ id: newUser.ops[0]._id, email: newUser.ops[0].email });
   }
 }
