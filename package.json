@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint",
-    "check-lint": "eslint [0-9]*.js",
+    "check-lint": "lint [0-9]*.js",
     "start-server": "nodemon --exec babel-node --presets @babel/preset-env ./server.js",
     "start-worker": "nodemon --exec babel-node --presets @babel/preset-env ./worker.js",
     "dev": "nodemon --exec babel-node --presets @babel/preset-env",
@@ -20,7 +20,7 @@
     "image-thumbnail": "^1.0.10",
     "mime-types": "^2.1.27",
     "mongodb": "^3.5.9",
-    "redis": "^4.1.0",
+    "redis": "^2.8.0",
     "sha1": "^1.1.1",
     "uuid": "^8.2.0"
   },

@@ -1,6 +1,6 @@
 import sha1 from 'sha1';
-import dbClient from '../utils/db';
 import mongodb from 'mongodb';
+import dbClient from '../utils/db';
 import redisClient from '../utils/redis';
 
 export default class Users {
@@ -35,8 +35,11 @@ export default class Users {
     const user = await redisClient.get(`auth_${token}`);
     // console.log(user);
     if (user) {
-      const result = await dbClient.client.db('files_manager').collection('users').find({ _id: Objectid(user) })
-      // console.log(result);
+      const id = new mongodb.ObjectID(user);
+      const result = await dbClient.client
+        .db('files_manager')
+        .collection('users')
+        .findOne({ _id: id });
       if (result) {
         return res.status(200).json({ id: result._id, email: result.email });
       }

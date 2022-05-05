@@ -22,19 +22,18 @@ export default class AuthController {
     const token = uuidv4();
 
     const key = `auth_${token}`;
-    redisClient.set(key, finduser._id, 86400);
+    redisClient.set(key, finduser._id.toString(), 86400);
 
     return res.status(200).json({ token });
   }
 
   static async getDisconnect(req, res) {
     const token = req.headers['x-token'];
-    console.log(token);
     const user = redisClient.get(`auth_${token}`);
     if (user) {
       redisClient.del(`auth_${token}`);
       return res.status(200).json({ message: 'Disconnected' });
     }
-    return res.status(401).json({ error: 'Unauthorized' });
+    return res.status(401);
   }
 }
