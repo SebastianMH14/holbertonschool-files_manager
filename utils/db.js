@@ -6,10 +6,7 @@ const DB_NAME = process.env.DB_DATABASE || 'files_manager';
 
 class DBClient {
   constructor() {
-    this.client = new MongoClient(`mongodb://${HOST}:${PORT}/${DB_NAME}`, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    this.client = new MongoClient(`mongodb://${HOST}:${PORT}/${DB_NAME}`);
     this.client.connect();
   }
 
