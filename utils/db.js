@@ -1,5 +1,4 @@
 const { MongoClient } = require('mongodb');
-const { promisify } = require('util');
 
 const HOST = process.env.MONGO_HOST || 'localhost';
 const PORT = process.env.DB_PORT || 27017;
@@ -7,13 +6,15 @@ const DB_NAME = process.env.DB_DATABASE || 'files_manager';
 
 class DBClient {
   constructor() {
-    this.client = MongoClient.connect(`mongodb://${HOST}:${PORT}/`);
+    this.client = new MongoClient(`mongodb://${HOST}:${PORT}/${DB_NAME}`, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     this.client.connect();
-    const db = this.client.db(DB_NAME);
   }
 
   isAlive() {
-    const status = this.client.connected;
+    const status = this.client.isConnected;
     if (status) {
       return true;
     }
