@@ -32,8 +32,8 @@ export default class AuthController {
     const user = redisClient.get(`auth_${token}`);
     if (user) {
       redisClient.del(`auth_${token}`);
-      return res.status(200).json({ message: 'Disconnected' });
+      return res.status(204);
     }
-    return res.status(401);
+    return res.status(401).json({ error: 'Unauthorized ' });
   }
 }
