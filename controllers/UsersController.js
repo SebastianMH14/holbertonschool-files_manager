@@ -4,7 +4,6 @@ import dbClient from '../utils/db';
 export default class Users {
   static async postNew(req, res) {
     const { email, password } = req.body;
-    console.log(email, password);
 
     if (!email) {
       return res.status(400).json({ error: 'Missing email' });
