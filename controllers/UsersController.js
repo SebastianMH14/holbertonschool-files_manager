@@ -23,6 +23,6 @@ export default class Users {
       .db('files_manager')
       .collection('users')
       .insert({ email, password: hash });
-    return res.status(201).json({ id: newUser._id, email: newUser.email });
+    return res.status(201).json({ id: newUser.ops[0]._id, email: newUser.ops[0].email });
   }
 }
