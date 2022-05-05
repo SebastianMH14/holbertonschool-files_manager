@@ -1,6 +1,5 @@
 import sha1 from 'sha1';
-import dbClient from '../utils/db';
-import { DB_NAME } from '../utils/db';
+import dbClient, { DB_NAME } from '../utils/db';
 
 export default class Users {
   static async postNew(req, res) {
